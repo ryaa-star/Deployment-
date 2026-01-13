@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Email Login</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #e2bfde;
+      }
+
+      .login-box {
+        width: 350px;
+        margin: 100px auto;
+        padding: 25px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-size: 14px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #720856;
+        color: white;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #8171b4;
+      }
+
+      .message {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-box">
+      <h2>Email Login</h2>
+
+      <form onsubmit="handleLogin(event)">
+        <label>Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          required
+        />
+
+        <label>Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          required
+        />
+
+        <button type="submit">Login</button>
+      </form>
+
+      <div class="message" id="message"></div>
+    </div>
+
+    <script>
+      function handleLogin(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const messageBox = document.getElementById("message");
+
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("API response:", data);
+
+            messageBox.style.color = "green";
+            messageBox.innerText = "Login request sent successfully!";
+          })
+          .catch((error) => {
+            messageBox.style.color = "red";
+            messageBox.innerText = "Something went wrong!";
+          });
+      }
+    </script>
+  </body>
+</html>
