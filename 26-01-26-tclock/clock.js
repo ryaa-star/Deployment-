@@ -7,12 +7,37 @@ window.onload = () => {
     // Re-sync every 5 minutes to prevent drift
     setInterval(fetchRealTime, 300000);
 }
-
-async function fetchRealTime() {
+                                                                                                                  // one toggle button 12 and 24 hrs 
+async function fetchRealTime() {                                                                                    //
     try {
-        const response = await fetch('https://worldtimeapi.org/api/timezone/Asia/Kolkata');
+        // Source - https://stackoverflow.com/a
+// Posted by PD81, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-01-21, License - CC BY-SA 4.0
+
+       const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
+        if (!response.ok) throw new Error('Time API failed');
+
         const data = await response.json();
-        const realDate = new Date(data.datetime);
+
+        // API-provided UTC time
+        const utcDate = new Date(data.utc_datetime);
+
+        // Convert to user's timezone
+        const userDate = new Intl.DateTimeFormat('en-US', {
+        timeZone: userTimeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+        }).format(utcDate);
+
+        console.log('User local time (API-based):', userDate);
+
         
         currentTime = {
             hours: realDate.getHours(),
@@ -49,10 +74,12 @@ async function fetchRealTime() {
             updateDisplay();
         }, 1000);
         
-        console.log("✅ Synced with real time!");
+        console.log("Synced with real time!");
         
     } catch (error) {
-        console.error('❌ Failed to fetch time, using system time:', error);
+        console.error('Failed to fetch time, using system time:', error);
+        console.log("msg", error.message);
+        
         // Fallback to system time if API fails
         startSystemTime();
     }
