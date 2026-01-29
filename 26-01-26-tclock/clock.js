@@ -1,114 +1,146 @@
 let currentTime = null;
 let intervalId = null;
+let is24Hour = true;
+let timezone = 'Asia/Kolkata';
+let alarms = [];
 
 window.onload = () => {
-    fetchRealTime();
-    
-    // Re-sync every 5 minutes to prevent drift
-    setInterval(fetchRealTime, 300000);
-}
-                                                                                                                  // one toggle button 12 and 24 hrs 
-async function fetchRealTime() {                                                                                    //
-    try {
-        // Source - https://stackoverflow.com/a
-// Posted by PD81, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-01-21, License - CC BY-SA 4.0
-
-       const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-        const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
-        if (!response.ok) throw new Error('Time API failed');
-
-        const data = await response.json();
-
-        // API-provided UTC time
-        const utcDate = new Date(data.utc_datetime);
-
-        // Convert to user's timezone
-        const userDate = new Intl.DateTimeFormat('en-US', {
-        timeZone: userTimeZone,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-        }).format(utcDate);
-
-        console.log('User local time (API-based):', userDate);
-
-        
-        currentTime = {
-            hours: realDate.getHours(),
-            minutes: realDate.getMinutes(),
-            seconds: realDate.getSeconds()
-        };
-        
-        // Clear existing interval if any
-        if (intervalId) {
-            clearInterval(intervalId);
-        }
-        
-        // Update display immediately
-        updateDisplay();
-        
-        // Start incrementing every second
-        intervalId = setInterval(() => {
-            currentTime.seconds++;
-            
-            if (currentTime.seconds >= 60) {
-                currentTime.seconds = 0;
-                currentTime.minutes++;
-            }
-            
-            if (currentTime.minutes >= 60) {
-                currentTime.minutes = 0;
-                currentTime.hours++;
-            }
-            
-            if (currentTime.hours >= 24) {
-                currentTime.hours = 0;
-            }
-            
-            updateDisplay();
-        }, 1000);
-        
-        console.log("Synced with real time!");
-        
-    } catch (error) {
-        console.error('Failed to fetch time, using system time:', error);
-        console.log("msg", error.message);
-        
-        // Fallback to system time if API fails
-        startSystemTime();
+    const saved = localStorage.getItem("alarms");
+    if (saved) {
+        alarms = JSON.parse(saved);
+        showAlarms();
     }
+    document.getElementById("addAlarmBtn").onclick = () => {
+        document.getElementById("alarmForm").style.display = "block";
+    };
+
+    document.getElementById("cancelAlarm").onclick = () => {
+        document.getElementById("alarmForm").style.display = "none";
+    };
+
+    document.getElementById("saveAlarm").onclick = () => {
+        const hours = document.getElementById("alarmHours").value;
+        const minutes = document.getElementById("alarmMinutes").value;
+        const ampm = document.getElementById("alarmAMPM").value;
+        
+        if (hours && minutes) {
+            const alarmTime = hours + ":" + minutes + " " + ampm;
+            alarms.push(alarmTime);
+            localStorage.setItem("alarms", JSON.stringify(alarms));
+            showAlarms();
+            document.getElementById("alarmForm").style.display = "none";
+            document.getElementById("alarmHours").value = "";
+            document.getElementById("alarmMinutes").value = "";
+        } else {
+            alert("Please enter time");
+        }
+    };
+
+    updateTimeForTimezone();
+    setInterval(updateTimeForTimezone, 60000);
+
+    document.getElementById('toggle-format').onclick = () => {
+        is24Hour = !is24Hour;
+        document.getElementById('toggle-format').innerText = is24Hour ? '24 HR' : '12 HR';
+        updateDisplay();
+    };
+
+    document.getElementById('timezone').onchange = (e) => {
+        timezone = e.target.value;
+        updateTimeForTimezone();
+    };
+};
+
+function showAlarms() {
+    const list = document.getElementById("alarmList");
+    list.innerHTML = "";
+    
+    if (alarms.length === 0) {
+        list.innerHTML = "<p>No alarms set</p>";
+        return;
+    }
+    
+    alarms.forEach((alarm, index) => {
+        const div = document.createElement("div");
+        div.className = "alarm-item";
+        div.innerHTML = `
+            <span>${alarm}</span>
+            <button onclick="deleteAlarm(${index})">Delete</button>
+        `;
+        list.appendChild(div);
+    });
 }
+
+function deleteAlarm(index) {
+    alarms.splice(index, 1);
+    localStorage.setItem("alarms", JSON.stringify(alarms));
+    showAlarms();
+}
+
+function updateTimeForTimezone() {
+    if (intervalId) clearInterval(intervalId);
+
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: false
+    });
+
+    const parts = formatter.formatToParts(now);
+    currentTime = {
+        hours: parseInt(parts.find(p => p.type === 'hour').value),
+        minutes: parseInt(parts.find(p => p.type === 'minute').value),
+        seconds: parseInt(parts.find(p => p.type === 'second').value)
+    };
+
+    updateDisplay();
+    startTicking();
+}
+
+function startTicking() {
+    if (intervalId) clearInterval(intervalId);
+
+    intervalId = setInterval(() => {
+        currentTime.seconds++;
+        if (currentTime.seconds >= 60) { 
+            currentTime.seconds = 0; 
+            currentTime.minutes++; 
+        }
+        if (currentTime.minutes >= 60) { 
+            currentTime.minutes = 0; 
+            currentTime.hours++; 
+        }
+        if (currentTime.hours >= 24) { 
+            currentTime.hours = 0; 
+        }
+        updateDisplay();
+    }, 1000);
+}
+
 
 function updateDisplay() {
-    const h = currentTime.hours < 10 ? "0" + currentTime.hours : currentTime.hours;
-    const m = currentTime.minutes < 10 ? "0" + currentTime.minutes : currentTime.minutes;
-    const s = currentTime.seconds < 10 ? "0" + currentTime.seconds : currentTime.seconds;
-    
-    document.querySelector('#clock-hours').innerText = h;
-    document.querySelector('#clock-min').innerText = m;
-    document.querySelector('#clock-sec').innerText = s;
-}
+    if (!currentTime) return;
 
-function startSystemTime() {
-    intervalId = setInterval(() => {
-        const date = new Date();
-        
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        let seconds = date.getSeconds();
+    let h = currentTime.hours;
+    let ampm = '';
 
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+    if (!is24Hour) {
+        ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        document.getElementById('ampm').style.display = 'block';
+        document.getElementById('ampm').innerText = ampm;
+    } else {
+        document.getElementById('ampm').style.display = 'none';
+    }
 
-        document.querySelector('#clock-hours').innerText = hours;
-        document.querySelector('#clock-min').innerText = minutes;
-        document.querySelector('#clock-sec').innerText = seconds;
-    }, 1000);
+    const hh = String(h).padStart(2, '0');
+    const mm = String(currentTime.minutes).padStart(2, '0');
+    const ss = String(currentTime.seconds).padStart(2, '0');
+
+    document.getElementById('clock-hours').innerText = hh;
+    document.getElementById('clock-min').innerText = mm;
+    document.getElementById('clock-sec').innerText = ss;
 }

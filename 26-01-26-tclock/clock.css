@@ -1,4 +1,4 @@
-/*@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
 
 * {
   margin: 0;
@@ -7,104 +7,335 @@
 }
 
 body {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
   font-family: 'Orbitron', sans-serif;
   height: 100vh;
-  overflow: hidden;
-}  */
-
-
-/* 
-@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
 }
 
-body {
-  background: #000000;
-  font-family: 'Audiowide', sans-serif;
-  height: 100vh;
-  overflow: hidden;
-} */
-
-
-
-
-@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600;800&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+body::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+  animation: bgMove 20s ease-in-out infinite;
+  z-index: 0;
 }
 
-body {
-  background: #000000;
-  font-family: 'Montserrat Alternates', sans-serif;
-  height: 100vh;
-  overflow: hidden;
+@keyframes bgMove {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, -50px); }
 }
+
 .clock {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
-  gap: 30px;
+  gap: 40px;
+  z-index: 1;
 }
 
 .clock > div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: fadeIn 1s ease;
+  animation: slideIn 0.8s ease;
 }
 
-.heading {
-  color: #FFD700;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  margin-bottom: 15px;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-.time {
-  background: linear-gradient(145deg, #1a1a1a, #000000);
-  color: #FFD700;
-  font-size: 100px;
-  font-weight: 900;
-  width: 180px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.8),
-    inset 0 2px 5px rgba(255, 215, 0, 0.1),
-    0 0 20px rgba(255, 215, 0, 0.3);
-  border: 2px solid #333;
-  transition: all 0.3s ease;
-}
-
-.time:hover {
-  transform: translateY(-5px);
-  box-shadow: 
-    0 15px 40px rgba(0, 0, 0, 0.9),
-    0 0 30px rgba(255, 215, 0, 0.5);
-}
-
-@keyframes fadeIn {
+@keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.heading {
+  color: #FFD700;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.3);
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8); }
+}
+
+.time {
+  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+  color: #FFD700;
+  font-size: 100px;
+  font-weight: 900;
+  width: 200px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.9),
+    inset 0 1px 2px rgba(255, 215, 0, 0.1),
+    0 0 40px rgba(255, 215, 0, 0.2);
+  border: 2px solid #2a2a2a;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.time::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.time:hover::before {
+  left: 100%;
+}
+
+.time:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 1),
+    0 0 60px rgba(255, 215, 0, 0.4);
+  border-color: #FFD700;
+}
+
+.controls {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 10;
+}
+
+#timezone, #toggle-format {
+  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+  color: #FFD700;
+  border: 2px solid #2a2a2a;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+#timezone:hover, #toggle-format:hover {
+  border-color: #FFD700;
+  box-shadow: 
+    0 4px 20px rgba(255, 215, 0, 0.3),
+    inset 0 0 20px rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+#ampm {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 50px);
+  transform: translateY(-50%);
+  color: #FFD700;
+  font-size: 60px;
+  font-weight: 900;
+  text-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.8),
+    0 0 40px rgba(255, 215, 0, 0.5);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.alarm-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 25px;
+  border: 2px solid #FFD700;
+  background: #222;
+  color: #FFD700;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.alarm-btn:hover {
+  background: #333;
+  border-color: #FFA500;
+}
+
+.alarm-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1a1a1a;
+  border: 2px solid #FFD700;
+  padding: 25px;
+  border-radius: 8px;
+  z-index: 1000;
+  width: 320px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.alarm-form p {
+  color: #FFD700;
+  margin-bottom: 15px;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.time-inputs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #FFD700;
+  font-size: 18px;
+}
+
+.time-inputs input {
+  width: 65px;
+  padding: 10px;
+  background: #0a0a0a;
+  color: #FFD700;
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.time-inputs input:focus {
+  outline: none;
+  border-color: #FFD700;
+}
+
+.time-inputs select {
+  padding: 10px;
+  background: #0a0a0a;
+  color: #FFD700;
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.time-inputs select:focus {
+  outline: none;
+  border-color: #FFD700;
+}
+
+#saveAlarm, #cancelAlarm {
+  padding: 10px 20px;
+  margin: 5px;
+  background: #0a0a0a;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+#saveAlarm:hover {
+  background: #2a2a00;
+}
+
+#cancelAlarm:hover {
+  background: #2a0000;
+  border-color: #ff6666;
+  color: #ff6666;
+}
+
+#alarmList {
+  position: absolute;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  border: 2px solid #FFD700;
+  padding: 15px;
+  border-radius: 8px;
+  min-width: 320px;
+  max-width: 400px;
+  color: #FFD700;
+  font-size: 14px;
+  z-index: 10;
+  font-family: Arial, sans-serif;
+}
+
+#alarmList p {
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+}
+
+.alarm-item {
+  padding: 10px;
+  margin: 8px 0;
+  background: #0a0a0a;
+  border: 1px solid #444;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alarm-item:hover {
+  border-color: #FFD700;
+  background: #111;
+}
+
+.alarm-item span {
+  font-size: 14px;
+}
+
+.alarm-item button {
+  background: transparent;
+  border: 1px solid #FFD700;
+  color: #FFD700;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.alarm-item button:hover {
+  background: #2a0000;
+  border-color: #ff6666;
+  color: #ff6666;
 }

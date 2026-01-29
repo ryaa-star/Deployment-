@@ -1,26 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Theme Clock</title>
-    <link rel="stylesheet" href="clock.css">
-    <script src="clock.js"></script>
-  </head>
-  <body>
-    <div class="clock">
-      <div>
-         <p class="heading">HOURS</p> 
-         <div id="clock-hours" class="time"></div>
-      </div>
-      <div>
-        <p class="heading">MINUTES</p>
-      <div id="clock-min" class="time"></div>
-      </div>
-      <div>
-        <p class="heading">SECONDS</p>
-        <div id="clock-sec" class="time"></div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theme Clock</title>
+  <link rel="stylesheet" href="clock.css">
+</head>
+<body>
+  <div class="controls">
+    <select id="timezone">
+      <option value="Asia/Kolkata">India</option>
+      <option value="America/New_York">USA - New York</option>
+      <option value="America/Los_Angeles">USA - Los Angeles</option>
+      <option value="Europe/London">UK</option>
+      <option value="Asia/Tokyo">Japan</option>
+    </select>
+    <button id="toggle-format">24 HR</button>
+  </div>
+  
+  <div class="clock">
+    <div id="ampm" style="display:none;">AM</div>
+
+    <div>
+      <p class="heading">HOURS</p> 
+      <div id="clock-hours" class="time">00</div>
     </div>
-  </body>
+    <div>
+      <p class="heading">MINUTES</p>
+      <div id="clock-min" class="time">00</div>
+    </div>
+    <div>
+      <p class="heading">SECONDS</p>
+      <div id="clock-sec" class="time">00</div>
+    </div>
+  </div>
+  <button id="addAlarmBtn" class="alarm-btn">Add Alarm</button>
+  <div id="alarmForm" class="alarm-form" style="display:none;">
+    <p>Set Alarm Time:</p>
     
+    <div class="time-inputs">
+      <input type="number" id="alarmHours" min="1" max="12" placeholder="HH">
+      :
+      <input type="number" id="alarmMinutes" min="0" max="59" placeholder="MM">
+      <select id="alarmAMPM">
+        <option value="AM">AM</option>                                               <!---select is dropdown menu----->
+        <option value="PM">PM</option>
+      </select>
+    </div>
+
+    <button id="saveAlarm">Save</button>
+    <button id="cancelAlarm">Cancel</button>
+  </div>
+
+  <div id="alarmList"></div>
+
+  <script src="clock.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+  font-family: 'Quicksand', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+} 
+
+.clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  gap: 30px;
+}
+
+.clock > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 1s ease;
+}
+
+.heading {
+  color: #C71585;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(199, 21, 133, 0.5);
+}
+
+.time {
+  background: #FFFFFF;
+  color: #C71585;
+  font-size: 100px;
+  font-weight: 900;
+  width: 180px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  box-shadow: 
+    0 10px 30px rgba(199, 21, 133, 0.4),
+    inset 0 2px 5px rgba(255, 182, 193, 0.3),
+    0 0 20px rgba(255, 105, 180, 0.5);
+  border: 3px solid #FF69B4;
+  transition: all 0.3s ease;
+}
+
+.time:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 15px 40px rgba(199, 21, 133, 0.6),
+    0 0 30px rgba(255, 105, 180, 0.8);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.controls {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+#timezone {
+  background: #FFFFFF;
+  color: #C71585;
+  border: 3px solid #FF69B4;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+#toggle-format {
+  background: #FFFFFF;
+  color: #C71585;
+  border: 3px solid #FF69B4;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+#toggle-format:hover, #timezone:hover {
+  border-color: #C71585;
+  background: #FFF0F5;
+  transform: translateY(-2px);
+}
+
+#ampm {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 40px);
+  transform: translateY(-50%);
+  color: #C71585;
+  font-size: 50px;
+  font-weight: 900;
+  text-shadow: 0 0 15px rgba(199, 21, 133, 0.5);
+  animation: fadeIn 0.3s ease;
+}
