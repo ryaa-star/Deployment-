@@ -3,13 +3,19 @@ let intervalId = null;
 let is24Hour = true;
 let timezone = 'Asia/Kolkata';
 let alarms = [];
+let alarmAudio = null;
 
 window.onload = () => {
+
+    alarmAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+    alarmAudio.loop = true;
+
     const saved = localStorage.getItem("alarms");
     if (saved) {
         alarms = JSON.parse(saved);
         showAlarms();
     }
+
     document.getElementById("addAlarmBtn").onclick = () => {
         document.getElementById("alarmForm").style.display = "block";
     };
@@ -19,15 +25,23 @@ window.onload = () => {
     };
 
     document.getElementById("saveAlarm").onclick = () => {
+
         const hours = document.getElementById("alarmHours").value;
         const minutes = document.getElementById("alarmMinutes").value;
         const ampm = document.getElementById("alarmAMPM").value;
-        
+
         if (hours && minutes) {
-            const alarmTime = hours + ":" + minutes + " " + ampm;
+
+            const alarmTime =
+                String(hours).padStart(2, '0') + ":" +
+                String(minutes).padStart(2, '0') +
+                " " + ampm;
+
             alarms.push(alarmTime);
             localStorage.setItem("alarms", JSON.stringify(alarms));
+
             showAlarms();
+
             document.getElementById("alarmForm").style.display = "none";
             document.getElementById("alarmHours").value = "";
             document.getElementById("alarmMinutes").value = "";
@@ -51,15 +65,17 @@ window.onload = () => {
     };
 };
 
+
 function showAlarms() {
+
     const list = document.getElementById("alarmList");
     list.innerHTML = "";
-    
+
     if (alarms.length === 0) {
         list.innerHTML = "<p>No alarms set</p>";
         return;
     }
-    
+
     alarms.forEach((alarm, index) => {
         const div = document.createElement("div");
         div.className = "alarm-item";
@@ -77,10 +93,13 @@ function deleteAlarm(index) {
     showAlarms();
 }
 
+
 function updateTimeForTimezone() {
+
     if (intervalId) clearInterval(intervalId);
 
     const now = new Date();
+
     const formatter = new Intl.DateTimeFormat('en-US', {
         timeZone: timezone,
         hour: 'numeric',
@@ -90,6 +109,7 @@ function updateTimeForTimezone() {
     });
 
     const parts = formatter.formatToParts(now);
+
     currentTime = {
         hours: parseInt(parts.find(p => p.type === 'hour').value),
         minutes: parseInt(parts.find(p => p.type === 'minute').value),
@@ -101,27 +121,90 @@ function updateTimeForTimezone() {
 }
 
 function startTicking() {
+
     if (intervalId) clearInterval(intervalId);
 
     intervalId = setInterval(() => {
+
         currentTime.seconds++;
-        if (currentTime.seconds >= 60) { 
-            currentTime.seconds = 0; 
-            currentTime.minutes++; 
+
+        if (currentTime.seconds >= 60) {
+            currentTime.seconds = 0;
+            currentTime.minutes++;
         }
-        if (currentTime.minutes >= 60) { 
-            currentTime.minutes = 0; 
-            currentTime.hours++; 
+
+        if (currentTime.minutes >= 60) {
+            currentTime.minutes = 0;
+            currentTime.hours++;
         }
-        if (currentTime.hours >= 24) { 
-            currentTime.hours = 0; 
+
+        if (currentTime.hours >= 24) {
+            currentTime.hours = 0;
         }
+
         updateDisplay();
+        checkAlarms();
+
     }, 1000);
 }
 
 
+function checkAlarms() {
+
+    let h = currentTime.hours;
+    let ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+
+    const currentTimeString =
+        String(h).padStart(2, '0') + ":" +
+        String(currentTime.minutes).padStart(2, '0') +
+        " " + ampm;
+
+    alarms.forEach((alarm, index) => {
+        if (alarm === currentTimeString) {
+            ringAlarm(alarm, index);
+        }
+    });
+}
+
+function ringAlarm(alarmTime, index) {
+
+    alarmAudio.play().catch(() => {});
+
+    showAlarmPopup(alarmTime);
+
+    alarms.splice(index, 1);
+    localStorage.setItem("alarms", JSON.stringify(alarms));
+    showAlarms();
+}
+
+function showAlarmPopup(alarmTime) {
+
+    const overlay = document.createElement('div');
+    overlay.id = "alarmOverlay";
+
+    const popup = document.createElement('div');
+    popup.className = "alarm-popup ringing"; 
+
+    popup.innerHTML = `
+        <h2>ALARM!</h2>
+        <p>${alarmTime}</p>
+        <button id="stopAlarmBtn">STOP ALARM</button>
+    `;
+
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+
+    document.getElementById('stopAlarmBtn').onclick = () => {
+        alarmAudio.pause();
+        alarmAudio.currentTime = 0;
+        overlay.remove();
+    };
+}
+
+
 function updateDisplay() {
+
     if (!currentTime) return;
 
     let h = currentTime.hours;
@@ -130,6 +213,7 @@ function updateDisplay() {
     if (!is24Hour) {
         ampm = h >= 12 ? 'PM' : 'AM';
         h = h % 12 || 12;
+
         document.getElementById('ampm').style.display = 'block';
         document.getElementById('ampm').innerText = ampm;
     } else {

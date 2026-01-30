@@ -339,3 +339,76 @@ body::before {
   border-color: #ff6666;
   color: #ff6666;
 }
+
+#alarmOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.alarm-popup {
+  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+  border: 2px solid #FFD700;
+  border-radius: 18px;
+  padding: 45px 60px;
+  text-align: center;
+  box-shadow:
+    0 0 60px rgba(255, 215, 0, 0.35),
+    0 8px 40px rgba(0, 0, 0, 0.9);
+  animation: fadeIn 0.3s ease;
+}
+
+.alarm-popup h2 {
+  color: #FFD700;
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.alarm-popup p {
+  color: #FFD700;
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+#stopAlarmBtn {
+  background: #111;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  padding: 14px 35px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#stopAlarmBtn:hover {
+  background: #FFD700;
+  color: #000;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+}
+.alarm-popup.ringing {
+  animation: alarmShake 0.5s infinite;
+}
+
+@keyframes alarmShake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+body {
+  background: url("batman.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+
+
+
