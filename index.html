@@ -1,26 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Counter</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Projects</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- styles -->
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <div class="container">
-        <h1>counter</h1>
-        <span id="value">0</span>
-        <div class="button-container">
-          <button class="btn decrease">decrease</button>
-          <button class="btn reset">reset</button>
-          <button class="btn increase">increase</button>
-        </div>
-      </div>
-    </main>
-    <!-- javascript -->
-    <script src="app.js"></script>
-  </body>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background-color: #dfe2ed;
+      color: #e0e0e0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #94a2d1;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #080114;
+      margin-bottom: 30px;
+      font-size: 28px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-list {
+      list-style: none;
+      display: grid;
+      gap: 15px;
+    }
+
+    .project-item {
+      background: #2a2f3f;
+      padding: 20px;
+      border-radius: 6px;
+      border: 1px solid #3a3f4f;
+      transition: all 0.3s ease;
+    }
+
+   
+
+    .project-item a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #00bcd4;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1a1d29;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3a3f4f;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4a4f5f;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <h1>🚀 My Projects</h1>
+    
+    <ul class="project-list">
+      
+      <li class="project-item">
+        <a href="26-01-26-tclock/clock.html">
+          <div class="project-title">1.  Theme Clock</div>
+          <div class="project-desc">A clock with timezone support, alarms, and 11:11 wish feature</div>
+        </a>
+      </li>
+
+      <li class="project-item">
+        <a href="counterindex.html">
+          <div class="project-title">2. Counter App</div>
+          <div class="project-desc">Simple counter with increment and decrement buttons</div>
+        </a>
+      </li>
+
+      <li class="project-item">
+        <a href="19-01-26-review/review.html">
+          <div class="project-title">3. Review Page</div>
+          <div class="project-desc">Page that contains reviews</div>
+        </a>
+      </li>
+
+
+    </ul>
+
+  </div>
+
+</body>
 </html>
