@@ -4,6 +4,7 @@ let is24Hour = true;
 let timezone = 'Asia/Kolkata';
 let alarms = [];
 let alarmAudio = null;
+let wishShown = false;
 
 window.onload = () => {
 
@@ -131,6 +132,7 @@ function startTicking() {
         if (currentTime.seconds >= 60) {
             currentTime.seconds = 0;
             currentTime.minutes++;
+            wishShown = false;
         }
 
         if (currentTime.minutes >= 60) {
@@ -144,6 +146,7 @@ function startTicking() {
 
         updateDisplay();
         checkAlarms();
+        check1111();
 
     }, 1000);
 }
@@ -227,4 +230,137 @@ function updateDisplay() {
     document.getElementById('clock-hours').innerText = hh;
     document.getElementById('clock-min').innerText = mm;
     document.getElementById('clock-sec').innerText = ss;
+}
+
+function test1111() {
+    show1111Wish();
+}
+
+function setTime1110() {
+    currentTime = { hours: 11, minutes: 10, seconds: 55 };
+    wishShown = false;
+    updateDisplay();
+}
+
+function check1111() {
+    if ((currentTime.hours === 11 || currentTime.hours === 23) && 
+        currentTime.minutes === 11 && 
+        currentTime.seconds === 0 &&
+        !wishShown) {
+        wishShown = true;
+        show1111Wish();
+    }
+}
+
+function show1111Wish() {
+    playMagicalChime();
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'wishOverlay';
+    
+    for (let i = 0; i < 30; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = `${Math.random() * 2 + 1}px`;
+        star.style.height = `${Math.random() * 2 + 1}px`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        overlay.appendChild(star);
+    }
+    
+    const container = document.createElement('div');
+    container.className = 'wish-container';
+    
+    const bigTime = document.createElement('div');
+    bigTime.className = 'wish-time';
+    bigTime.innerHTML = '11:11';
+    
+    const quote = document.createElement('div');
+    quote.className = 'wish-quote';
+    quote.innerHTML = '"In the darkest hour, when hope seems lost,<br>the universe whispers... Make your wish."';
+    
+    const button = document.createElement('button');
+    button.className = 'wish-button';
+    button.innerHTML = 'Make a Wish';
+    button.onclick = () => wishGranted(overlay);
+    
+    container.appendChild(bigTime);
+    container.appendChild(quote);
+    container.appendChild(button);
+    overlay.appendChild(container);
+    document.body.appendChild(overlay);
+}
+
+function wishGranted(overlay) {
+    playWishSound();
+    
+    for (let i = 0; i < 30; i++) {
+        setTimeout(() => createWishParticle(overlay), i * 50);
+    }
+    
+    const container = overlay.querySelector('.wish-container');
+    container.innerHTML = `
+        <div class="wish-granted">
+            Your wish has been heard...
+            <span>The universe is working on it.</span>
+        </div>
+    `;
+    
+    setTimeout(() => {
+        overlay.style.opacity = '0';
+        setTimeout(() => document.body.removeChild(overlay), 1000);
+    }, 3000);
+}
+
+function createWishParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'wish-particle';
+    particle.innerHTML = '★';
+    particle.style.fontSize = `${Math.random() * 25 + 15}px`;
+    
+    const x = (Math.random() - 0.5) * 400;
+    const y = -Math.random() * 400 - 100;
+    particle.style.setProperty('--x', `${x}px`);
+    particle.style.setProperty('--y', `${y}px`);
+    particle.style.animation = `particleFloat ${Math.random() * 2 + 2}s ease-out forwards`;
+    
+    container.appendChild(particle);
+    setTimeout(() => container.removeChild(particle), 4000);
+}
+
+function playMagicalChime() {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    [523.25, 659.25, 783.99].forEach((freq, i) => {
+        setTimeout(() => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = freq;
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.8);
+        }, i * 200);
+    });
+}
+
+function playWishSound() {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    [880, 1046.5, 1318.5].forEach((freq, i) => {
+        setTimeout(() => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = freq;
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }, i * 100);
+    });
 }
