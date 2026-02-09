@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="web.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1> >>ShopHub Dashboard </h1>
+            <p>Welcome back! Here's your store overview</p>
+        </div>
+
+        <div class="tab-container" id="tabContainer">
+            <button class="tab active" data-tab="overview">
+                <i class="fa-solid fa-chart-line"></i>
+            </button>
+            <button class="tab" data-tab="analytics">
+                <i class="fa-solid fa-chart-pie"></i>
+            </button>
+            <button class="tab" data-tab="settings">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+            <button class="tab" data-tab="users">
+                <i class="fa-solid fa-users"></i>
+            </button>
+        </div>
+
+        <div class="content-container">
+            <div class="content active" id="overview">
+                <h2>>>Overview</h2>
+                <p>This is the overview section. Your store stats will appear here.</p>
+            </div>
+
+            <div class="content" id="analytics">
+                <h2>>> Analytics</h2>
+                <p>This is the analytics section. Charts and graphs will appear here.</p>
+            </div>
+
+            <div class="content" id="settings">
+                <h2>>> Settings</h2>
+                <p>This is the settings section. Store configuration options will appear here.</p>
+            </div>
+
+            <div class="content" id="users">
+                <h2> >>Users</h2>
+                <p>This is the users section. Customer list will appear here.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="web.js"></script>
+</body>
+</html>

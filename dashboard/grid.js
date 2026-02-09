@@ -7,7 +7,7 @@ console.log("loaded", stockInfo);
 const tbody = document.getElementById('dealerBody');
 
 dealerData.forEach(d => {
-  tbody.innerHTML += `
+  tbody.insertAdjacentHTML("beforeend", `
     <tr>
       <td>${d.dealer}</td>
       <td>${d.exchange}</td>
@@ -18,7 +18,7 @@ dealerData.forEach(d => {
       <td>${d.expMargin}</td>
       <td>${d.spanMargin}</td>
     </tr>
-  `;
+  `);
 });
 
 const tfirm = document.getElementById('firmSummary');
@@ -39,4 +39,3 @@ tstock.innerHTML = `
   <p>${stockInfo.dividend}</p>
 `;
 
-//iff innerHtml vs insertadjacenthtml 
