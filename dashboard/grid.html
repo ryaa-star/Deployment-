@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friskit Dashboard</title>
+    <link rel="stylesheet" href="grid.css">
+    <script type="module" src="grid.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <span>Friskit Dashboard</span>
+            </div>
+        </div>
+        <div class="nav-center">
+            <a href="grid.html" class="nav-link">Dashboard</a>
+            <a href="#" class="nav-link">Analytics</a>
+            <a href="#" class="nav-link">Reports</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="cards-section">
+           <div class="card" id="firmSummary"></div>
+           <div class="card" id="stockInfo"></div>
+        </div>
+
+        <div class="grid-section">
+            <div class="table-header">
+                <h2>Dealer Summary</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dealer</th>
+                        <th>Exchange</th>
+                        <th>Open P/L</th>
+                        <th>Day P/L</th>
+                        <th>Net P/L</th>
+                        <th>Exposure</th>
+                        <th>Exp Margin</th>
+                        <th>Span Margin</th>
+                    </tr>
+                </thead>
+              
+                 <tbody id="dealerBody"></tbody>   
+                 
+            </table>
+        </div>
+    </div>
+</body>
+</html>
