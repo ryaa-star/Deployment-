@@ -1,149 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Projects</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-devie-width, initial-scale=1.0">
+        <title> RA - Portfolio </title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <div class="logo">RA</div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-      background-color: #dfe2ed;
-      color: #e0e0e0;
-      padding: 20px;                                 
-      line-height: 1.6;
-    }
+<section class="hero" id="home">
+            <div class="hero-content">
+                <h1> Rupal Arya </h1>
+                <p class="subtitle"> Frontend Engineer </p>
+                <p class="description" id="typing-text"></p>
+                <div class="buttons">
+                    <a href="#projects" class="btn"> View my work </a>
+                    <a href="#contact" class="btn btn-outline"> Contact me </a>
+                </div>
+            </div>
+        </section>
+        <section class="about" id="about">
+            <div class="container">
+                <h2 class="section-title">About me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Hello! I am Rupal</h3>
+                        <p>A passionate Frontend Engineer who loves creating beautiful and functional web experiences.
+                            I enjoy turning ideas into reality through clean code and thoughtful design</p>
+                         <p>
+                            When I am not coding, you will find me exploring new technologies and working on exloring </p>
+                         </div>
+                         <div class="about-image">
+                            <div class="avatar"></div>
+                         </div>
+                </div>
+            </div>
+        </section>
+        </section>
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: #94a2d1;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
+        <!-- Skills Section -->
+<section class="skills" id="skills">
+    <div class="container">
+        <h2 class="section-title">Skills & Technologies</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon"></div>
+                <h3>HTML</h3>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"></div>
+                <h3>CSS</h3>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"></div>
+                <h3>JavaScript</h3>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"></div>
+                <h3>React</h3>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"></div>
+                <h3>UI/UX Design</h3>
+            </div>
+        </div>
+    </div>
+</section>
+  <section class="projects" id="projects">
+    <div class="container">
+      <h2 class="section-title">My Projects</h2>
+      <div class="projects-grid">
+        
+        <div class="project-card">
+          <div class="project-icon"></div>
+          <h3>Theme Clock</h3>
+          <p>A beautiful clock with timezone support, alarms, and special 11:11 wish feature.</p>
+          <a href="26-01-26-tclock/clock.html" class="project-link">View Project →</a>
+        </div>
 
-    h1 {
-      color: #080114;
-      margin-bottom: 30px;
-      font-size: 28px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        <div class="project-card">
+          <div class="project-icon"></div>
+          <h3>Counter App</h3>
+          <p>An elegant counter application with smooth increment and decrement functionality.</p>
+          <a href="counter/counter.html" class="project-link">View Project →</a>
+        </div>
 
-    .project-list {
-      list-style: none;
-      display: grid;
-      gap: 15px;
-    }
+        <div class="project-card">
+          <div class="project-icon"></div>
+          <h3>Review Page</h3>
+          <p>A dynamic review showcase page with interactive elements and beautiful layouts.</p>
+          <a href="19-01-26-review/review.html" class="project-link">View Project →</a>
+        </div>
 
-    .project-item {
-      background: #2a2f3f;
-      padding: 20px;
-      border-radius: 6px;
-      border: 1px solid #3a3f4f;
-      transition: all 0.3s ease;
-    }
+        <div class="project-card">
+          <div class="project-icon"></div>
+          <h3>Ecommerce Dashboard</h3>
+          <p>A modern ecommerce dashboard featuring interactive buttons and intuitive navigation.</p>
+          <a href="ecommerce/web.html" class="project-link">View Project →</a>
+        </div>
 
-   
+        <div class="project-card">
+          <div class="project-icon"></div>
+          <h3>Analytics Dashboard</h3>
+          <p>A comprehensive dashboard with data visualization and real-time analytics.</p>
+          <a href="dashboard/grid.html" class="project-link">View Project →</a>
+        </div>
 
-    .project-item a {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
+      </div>
+    </div>
 
-    .project-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #00bcd4;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+  </section>
+  </section>
 
-    .project-desc {
-      font-size: 14px;
-      color: #9ca3af;
-    }
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Let's Connect!</h2>
+      <p class="contact-text">
+        I'm always excited to collaborate on new projects. Feel free to reach out!
+      </p>
+      <a href="mailto:rupal.arya1212@gmail.com" class="btn">Send me an email</a>
+      
+      <div class="social-links">
+        <a href="https://github.com/ryaa-star" target="_blank" class="social-btn">
+          <span>GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/rupal-arya-4706912a3" target="_blank" class="social-btn">
+          <span>LinkedIn</span>
+        </a>
+        <a href="mailto:rupal.arya1212@gmail.com" class="social-btn">
+          <span>Email</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #1a1d29;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #3a3f4f;
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #4a4f5f;
-    }
-  </style>
-</head>
-<body>
   
-  <div class="container">
-    <h1>🚀 My Projects</h1>
-    
-    <ul class="project-list">
-      
-      <li class="project-item">
-        <a href="26-01-26-tclock/clock.html">
-          <div class="project-title">1.  Theme Clock</div>
-          <div class="project-desc">A clock with timezone support, alarms, and 11:11 wish feature</div>
-        </a>
-      </li>
-
-      <li class="project-item">
-        <a href="counter/counter.html">
-          <div class="project-title">2. Counter App</div>
-          <div class="project-desc">Simple counter with increment and decrement buttons</div>
-        </a>
-      </li>
-
-      <li class="project-item">
-        <a href="19-01-26-review/review.html">
-          <div class="project-title">3. Review Page</div>
-          <div class="project-desc">Page that contains reviews</div>
-        </a>
-      </li>
-
-      <li class="project-item">
-        <a href="ecommerce/web.html">
-          <div class="project-title">4. Ecommerce Dashboard</div>
-          <div class="project-desc">Page that contains buttons</div>
-        </a>
-      </li>
-      
-      <li class="project-item">
-        <a href="dashboard/grid.html">
-          <div class="project-title">5. Dashboard</div>
-          <div class="project-desc">Page that contains dashboard</div>
-        </a>
-      </li>
-
-      
-
-
-
-    </ul>
-
-  </div>
-
-</body>
+         <script src="script.js"></script>
+    </body>
 </html>
