@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World Table</title>
+  <link href="output.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-gray-100 min-h-screen p-8">
+
+  <h1 class="text-4xl font-bold text-center text-blue-400 mb-8">
+    STOCK SCORES
+  </h1>
+
+  <div class="max-w-4xl mx-auto overflow-x-auto">
+    <table class="min-w-full border border-gray-700 rounded-lg overflow-hidden">
+      
+      <thead class="bg-gray-800">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+            Symbol
+          </th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+            Last 
+          </th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+            Change 
+          </th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+            Change %
+          </th>
+        </tr>
+      </thead>
+
+     <tbody>
+  <tr class="hover:bg-gray-800 transition" data-base="12345">
+    <td class="px-6 py-4">BankNift</td>
+    <td class="px-6 py-4 last text-gray-100">12345</td>
+    <td class="px-6 py-4 change text-green-400">0</td>
+    <td class="px-6 py-4 percent text-green-400">0%</td>
+  </tr>
+
+  <tr class="hover:bg-gray-800 transition" data-base="9876">
+    <td class="px-6 py-4">Nifty</td>
+    <td class="px-6 py-4 last text-gray-100 ">9876</td>
+    <td class=" px-6 py-4 change text-green-400">0</td>
+    <td class=" px-6 py-4 percent text-green-400">0%</td>
+  </tr>
+
+  <tr class="hover:bg-gray-800 transition" data-base="65439">
+    <td class="px-6 py-4">Sensex</td>
+    <td class="px-6 py-4 last text-gray-100">65439</td>
+    <td class=" px-6 py-4 change text-green-400">0</td>
+    <td class=" px-6 py-4 percent text-green-400">0%</td>
+  </tr>
+
+  <tr class="hover:bg-gray-800 transition" data-base="23456">
+    <td class="px-6 py-4">DXY</td>
+    <td class="px-6 py-4 last text-gray-100">23456</td>
+    <td class="px-6 py-4 change text-green-400">0</td>
+    <td class=" px-6 py-4 percent text-green-400">0%</td>
+  </tr>
+</tbody>
+
+
+</body>
+<script>
+  const rows = document.querySelectorAll("tbody tr");
+
+  function updatePrices() {
+    rows.forEach(row => {
+      const base = Number(row.dataset.base);
+      const lastEl = row.querySelector(".last");
+      const changeEl = row.querySelector(".change");
+      const percentEl = row.querySelector(".percent");
+    let last = Number(lastEl.textContent);
+
+last += (Math.random() - 0.5) * 50;
+
+const change = last - base;
+const percent = (change / base) * 100;
+
+lastEl.textContent = last.toFixed(2);
+
+changeEl.textContent =
+  (change > 0 ? "+" : "") + change.toFixed(2);
+
+percentEl.textContent =
+  (percent > 0 ? "+" : "") + percent.toFixed(2) + "%";
+
+if (change > 0) {
+  changeEl.classList.add("text-green-400");
+  changeEl.classList.remove("text-red-400");
+
+  percentEl.classList.add("text-green-400");
+  percentEl.classList.remove("text-red-400");
+} else {
+  changeEl.classList.add("text-red-400");
+  changeEl.classList.remove("text-green-400");
+
+  percentEl.classList.add("text-red-400");
+  percentEl.classList.remove("text-green-400");
+}
+
+     
+      if (last > base) {
+        lastEl.classList.add("text-green-400");
+        lastEl.classList.remove("text-red-400");
+      } else {
+        lastEl.classList.add("text-red-400");
+        lastEl.classList.remove("text-green-400");
+      }
+    });
+  }
+
+  setInterval(updatePrices, 1000);
+</script>
+
+</html>
