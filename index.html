@@ -1,157 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width-devie-width, initial-scale=1.0">
-        <title> RA - Portfolio </title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-<nav class="navbar" id="navbar">
-    <div class="nav-container">
-        <div class="logo">RA</div>
-        <ul class="nav-menu">
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</nav>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rupal Arya</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #001f3f; }
 
-<section class="hero" id="home">
-            <div class="hero-content">
-                <h1> Rupal Arya </h1>
-                <p class="subtitle"> Frontend Engineer </p>
-                <p class="description" id="typing-text"></p>
-                <div class="buttons">
-                    <a href="#projects" class="btn"> View my work </a>
-                    <a href="#contact" class="btn btn-outline"> Contact me </a>
-                </div>
-            </div>
-        </section>
-        <section class="about" id="about">
-            <div class="container">
-                <h2 class="section-title">About me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Hello! I am Rupal</h3>
-                        <p>A passionate Frontend Engineer who loves creating beautiful and functional web experiences.
-                            I enjoy turning ideas into reality through clean code and thoughtful design</p>
-                         <p>
-                            When I am not coding, you will find me exploring new technologies and working on exloring </p>
-                         </div>
-                         <div class="about-image">
-                            <div class="avatar"></div>
-                         </div>
-                </div>
-            </div>
-        </section>
-        </section>
+  #hero {
+    position: fixed; inset: 0; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; pointer-events: none;
+  }
 
-        <!-- Skills Section -->
-<section class="skills" id="skills">
-    <div class="container">
-        <h2 class="section-title">Skills & Technologies</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-icon"></div>
-                <h3>HTML</h3>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon"></div>
-                <h3>CSS</h3>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon"></div>
-                <h3>JavaScript</h3>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon"></div>
-                <h3>React</h3>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon"></div>
-                <h3>UI/UX Design</h3>
-            </div>
-        </div>
-    </div>
-</section>
-  <section class="projects" id="projects">
-    <div class="container">
-      <h2 class="section-title">My Projects</h2>
-      <div class="projects-grid">
-        
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h3>Theme Clock</h3>
-          <p>A beautiful clock with timezone support, alarms, and special 11:11 wish feature.</p>
-          <a href="26-01-26-tclock/clock.html" class="project-link">View Project </a>
-        </div>
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(5rem, 15vw, 14rem);
+    line-height: .88;
+    letter-spacing: -.04em;
+    color: #e0f4ff;
+    text-shadow: 0 0 40px rgba(100,180,255,.3);
+  }
+  h1 em { font-style: italic; color: #7dd3fc; }
 
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h3>Counter App</h3>
-          <p>An elegant counter application with smooth increment and decrement functionality.</p>
-          <a href="counter/counter.html" class="project-link">View Project </a>
-        </div>
+  p {
+    margin-top: 1.2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: .8rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(200,230,255,.35);
+  }
 
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h3>Review Page</h3>
-          <p>A dynamic review showcase page with interactive elements and beautiful layouts.</p>
-          <a href="19-01-26-review/review.html" class="project-link">View Project</a>
-        </div>
+  canvas {
+    position: fixed; inset: 0; z-index: 3;
+    cursor: crosshair;
+  }
 
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h3>Ecommerce Dashboard</h3>
-          <p>A modern ecommerce dashboard featuring interactive buttons and intuitive navigation.</p>
-          <a href="ecommerce/web.html" class="project-link">View Project</a>
-        </div>
+  .pop {
+    position: fixed; z-index: 4; pointer-events: none;
+    border-radius: 50%;
+    border: 2px solid rgba(150,220,255,.7);
+    transform: translate(-50%, -50%);
+    animation: popAnim .45s ease-out forwards;
+  }
+  @keyframes popAnim {
+    0%   { transform: translate(-50%,-50%) scale(1); opacity: .8; }
+    100% { transform: translate(-50%,-50%) scale(3.5); opacity: 0; }
+  }
+</style>
+</head>
+<body>
 
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h3>Analytics Dashboard</h3>
-          <p>A comprehensive dashboard with data visualization and real-time analytics.</p>
-          <a href="dashboard/grid.html" class="project-link">View Project</a>
-        </div>
+<div id="hero">
+  <h1>Rupal<br><em>Arya</em></h1>
+  <p>Frontend Engineer · MCA Student</p>
+</div>
 
-      </div>
-    </div>
+<canvas id="c"></canvas>
 
-  </section>
-  </section>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
 
-  <section class="contact" id="contact">
-    <div class="container">
-      <h2 class="section-title">Let's Connect!</h2>
-      <p class="contact-text">
-        I'm always excited to collaborate on new projects. Feel free to reach out!
-      </p>
-      <a href="mailto:rupal.arya1212@gmail.com" class="btn">Send me an email</a>
-      
-      <div class="social-links">
-        <a href="https://github.com/ryaa-star" target="_blank" class="social-btn">
-          <span>GitHub</span>
-        </a>
-        <a href="https://www.linkedin.com/in/rupal-arya-4706912a3" target="_blank" class="social-btn">
-          <span>LinkedIn</span>
-        </a>
-        <a href="mailto:rupal.arya1212@gmail.com" class="social-btn">
-          <span>Email</span>
-        </a>
-      </div>
-    </div>
-  </section>
+let W, H;
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize();
+window.addEventListener('resize', resize);
 
-  
-         <script src="script.js"></script>
-    </body>
+class Bubble {
+  constructor() {
+    this.x = 60 + Math.random() * (innerWidth - 120);
+    this.y = innerHeight + 40;
+    this.r = 12 + Math.random() * 28;
+    this.speed = 0.4 + Math.random() * 0.7;
+    this.drift = (Math.random() - .5) * 0.3;
+    this.wobble = Math.random() * Math.PI * 2;
+    this.alpha = 0.15 + Math.random() * 0.2;
+    this.alive = true;
+    this.popping = false;
+    this.popProgress = 0;
+  }
+
+  update() {
+    if (this.popping) {
+      this.popProgress += 0.15;
+      this.alpha -= 0.07;
+      if (this.alpha <= 0) this.alive = false;
+      return;
+    }
+    this.wobble += 0.025;
+    this.x += this.drift + Math.sin(this.wobble) * 0.3;
+    this.y -= this.speed;
+    if (this.y + this.r < 0) this.alive = false;
+  }
+
+  draw() {
+    const r = this.popping ? this.r * (1 + this.popProgress) : this.r;
+
+    const grad = ctx.createRadialGradient(
+      this.x - r * .3, this.y - r * .3, r * .05,
+      this.x, this.y, r
+    );
+    grad.addColorStop(0,   `rgba(180,230,255,${this.alpha * 1.8})`);
+    grad.addColorStop(0.5, `rgba(100,180,255,${this.alpha})`);
+    grad.addColorStop(1,   `rgba(50,130,220,0.02)`);
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.strokeStyle = `rgba(150,210,255,${this.alpha * 2.5})`;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.fillStyle = `rgba(255,255,255,${this.alpha * 1.5})`;
+    ctx.beginPath();
+    ctx.ellipse(this.x - r * .3, this.y - r * .3, r * .15, r * .08, -Math.PI / 4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  isHit(px, py) {
+    return Math.hypot(px - this.x, py - this.y) < this.r;
+  }
+
+  pop() {
+    this.popping = true;
+    const el = document.createElement('div');
+    el.className = 'pop';
+    el.style.left   = this.x + 'px';
+    el.style.top    = this.y + 'px';
+    el.style.width  = this.r * 2 + 'px';
+    el.style.height = this.r * 2 + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 500);
+  }
+}
+
+const bubbles = [];
+for (let i = 0; i < 20; i++) {
+  const b = new Bubble();
+  b.y = Math.random() * innerHeight; // scatter on load
+  bubbles.push(b);
+}
+
+setInterval(() => {
+  if (bubbles.filter(b => b.alive).length < 22) bubbles.push(new Bubble());
+}, 900);
+
+canvas.addEventListener('click', e => {
+  for (let i = bubbles.length - 1; i >= 0; i--) {
+    if (bubbles[i].alive && !bubbles[i].popping && bubbles[i].isHit(e.clientX, e.clientY)) {
+      bubbles[i].pop();
+      break;
+    }
+  }
+});
+
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+
+  for (let i = bubbles.length - 1; i >= 0; i--) {
+    bubbles[i].update();
+    bubbles[i].draw();
+    if (!bubbles[i].alive) {
+      bubbles.splice(i, 1);
+      bubbles.push(new Bubble());
+    }
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
 </html>
